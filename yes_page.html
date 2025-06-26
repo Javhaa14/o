@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Явмаар байгааг чинь мэдсиймаа!</title>
+    <link rel="stylesheet" href="./yes_style.css" />
+    <style>
+      .form-section {
+        color: #111;
+      }
+      .form-section label {
+        display: block;
+        margin: 12px 0 4px;
+        font-weight: bold;
+      }
+      .form-section select,
+      .form-section input[type="text"],
+      .form-section input[type="time"] {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #aaa;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .form-section button {
+        padding: 8px 18px;
+        border-radius: 4px;
+        border: none;
+        background: #4caf50;
+        color: #fff;
+        font-size: 1em;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .form-section .add-btn {
+        background: #1976d2;
+        margin-left: 8px;
+      }
+      .form-section .warning {
+        color: #d32f2f;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+      .end-section {
+        color: #111;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="header_text">Явмаар байгааг чинь мэдсиймаа!</h1>
+      <div class="form-section" id="formSection">
+        <form id="activityForm" autocomplete="off">
+          <label for="activityInput">Ямар activity хийх вэ?</label>
+          <div id="activityMultiSelect" class="multi-select-container">
+            <div id="selectedActivities" class="selected-activities"></div>
+            <input type="text" id="activityInput" placeholder="Activity сонгох эсвэл нэмэх..." autocomplete="off" />
+            <div id="activityDropdown" class="activity-dropdown" style="display:none;"></div>
+          </div>
+          <label for="timeInput">Хэдэн цагт уулзах вэ?</label>
+          <input type="time" id="timeInput" />
+          <div class="warning" id="warningMsg" style="display: none"></div>
+          <button type="submit">Илгээх</button>
+        </form>
+      </div>
+      <div class="end-section" id="endSection" style="display: none">
+        <h2>Баярлалаа! Удахгүй уулзая 💖</h2>
+        <div class="gif_container">
+          <img
+            src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2l6OGp4dHlta3kyZTB1dDFrdXJ5OTZrbGlpOGNhYmc0cHMxZ2RxNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Xft2d1ir6iMAzMju3K/giphy.gif"
+            style="max-width: 400px" />
+        </div>
+      </div>
+    </div>
+    <script>
+      const defaultActivities = [
+        "Кино үзэх",
+        "Кофе уух",
+        "Паркaар зугаалах",
+        "Хоол идэх",
+        "Тоглоомын төв орох"
+      ];
+      let availableActivities = [...defaultActivities];
+      let selectedActivities = [];
+
+      const activityInput = document.getElementById("activityInput");
+      const activityDropdown = document.getElementById("activityDropdown");
+      const selectedActivitiesDiv = document.getElementById("selectedActivities");
+
+      function renderSelectedActivities() {
+        selectedActivitiesDiv.innerHTML = "";
+        selectedActivities.forEach((activity, idx) => {
+          const chip = document.createElement("span");
+          chip.className = "activity-chip";
+          chip.textContent = activity;
+          const removeBtn = document.createElement("button");
+          removeBtn.className = "remove-chip";
+          removeBtn.textContent = "×";
+          removeBtn.onclick = () => {
+            selectedActivities.splice(idx, 1);
+            if (!availableActivities.includes(activity)) availableActivities.push(activity);
+            renderSelectedActivities();
+            renderDropdown();
+          };
+          chip.appendChild(removeBtn);
+          selectedActivitiesDiv.appendChild(chip);
+        });
+      }
+
+      function renderDropdown() {
+        const value = activityInput.value.trim().toLowerCase();
+        const filtered = availableActivities.filter(a => a.toLowerCase().includes(value) && !selectedActivities.includes(a));
+        if (filtered.length === 0 && value === "") {
+          activityDropdown.style.display = "none";
+          activityDropdown.innerHTML = "";
+          return;
+        }
+        activityDropdown.innerHTML = "";
+        filtered.forEach(activity => {
+          const option = document.createElement("div");
+          option.className = "dropdown-option";
+          option.textContent = activity;
+          option.onclick = () => {
+            selectedActivities.push(activity);
+            availableActivities = availableActivities.filter(a => a !== activity);
+            activityInput.value = "";
+            renderSelectedActivities();
+            renderDropdown();
+          };
+          activityDropdown.appendChild(option);
+        });
+        if (value && !defaultActivities.concat(selectedActivities).includes(value) && !filtered.includes(value)) {
+          const customOption = document.createElement("div");
+          customOption.className = "dropdown-option custom";
+          customOption.textContent = `➕ '${activityInput.value}' нэмэх`;
+          customOption.onclick = () => {
+            selectedActivities.push(activityInput.value);
+            activityInput.value = "";
+            renderSelectedActivities();
+            renderDropdown();
+          };
+          activityDropdown.appendChild(customOption);
+        }
+        activityDropdown.style.display = activityDropdown.childElementCount > 0 ? "block" : "none";
+      }
+
+      activityInput.addEventListener("input", renderDropdown);
+      activityInput.addEventListener("focus", renderDropdown);
+      activityInput.addEventListener("blur", () => setTimeout(() => activityDropdown.style.display = "none", 150));
+      document.addEventListener("DOMContentLoaded", () => {
+        renderSelectedActivities();
+      });
+
+      document.getElementById("activityForm").onsubmit = function (e) {
+        e.preventDefault();
+        var time = document.getElementById("timeInput").value;
+        var warning = document.getElementById("warningMsg");
+        if (selectedActivities.length === 0 || !time) {
+          warning.textContent = "Бүх талбарыг бөглөнө үү!";
+          warning.style.display = "block";
+          return;
+        }
+        warning.style.display = "none";
+        document.getElementById("formSection").style.display = "none";
+        document.getElementById("endSection").style.display = "block";
+      };
+    </script>
+  </body>
+</html>

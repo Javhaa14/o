@@ -1,0 +1,193 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f9e3e3;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.header_text {
+    font-size: 3em;
+    color: #d32f2f;
+    margin-bottom: 24px;
+}
+
+.form-section {
+    background: #fff;
+    padding: 32px 28px 24px 28px;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(211,47,47,0.12), 0 1.5px 6px rgba(0,0,0,0.08);
+    min-width: 320px;
+    max-width: 380px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.3s;
+}
+.form-section:hover {
+    box-shadow: 0 10px 40px rgba(211,47,47,0.18), 0 2px 8px rgba(0,0,0,0.10);
+}
+.form-section label {
+    margin-top: 10px;
+    margin-bottom: 6px;
+    font-size: 1.1em;
+    color: #d32f2f;
+    font-weight: 600;
+    text-align: left;
+    width: 100%;
+}
+.form-section select,
+.form-section input[type="text"],
+.form-section input[type="time"] {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1.5px solid #d32f2f;
+    width: 100%;
+    margin-bottom: 14px;
+    font-size: 1em;
+    background: #f9e3e3;
+    transition: border 0.2s;
+}
+.form-section select:focus,
+.form-section input[type="text"]:focus,
+.form-section input[type="time"]:focus {
+    border: 1.5px solid #4caf50;
+    outline: none;
+}
+.form-section button {
+    padding: 10px 24px;
+    border-radius: 6px;
+    border: none;
+    background: #4caf50;
+    color: #fff;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.form-section button:hover {
+    background: #388e3c;
+    box-shadow: 0 4px 16px rgba(76,175,80,0.16);
+}
+.form-section .add-btn {
+    background: #1976d2;
+    margin-left: 8px;
+}
+.form-section .add-btn:hover {
+    background: #0d47a1;
+}
+.form-section .warning {
+    color: #d32f2f;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.end-section {
+    color: #111;
+    text-align: center;
+}
+
+.gif_container img {
+    width: 100%; 
+    max-width: 500px; 
+    height: auto; 
+}
+
+.multi-select-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+  background: #f9e3e3;
+  border: 1.5px solid #d32f2f;
+  border-radius: 8px;
+  padding: 8px 8px 4px 8px;
+  min-height: 48px;
+  margin-bottom: 14px;
+  position: relative;
+}
+.selected-activities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.activity-chip {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  color: #d32f2f;
+  border: 1px solid #d32f2f;
+  border-radius: 16px;
+  padding: 4px 12px 4px 10px;
+  font-size: 1em;
+  margin-bottom: 4px;
+  box-shadow: 0 1px 4px rgba(211,47,47,0.08);
+  font-weight: 500;
+}
+.remove-chip {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  font-size: 1.1em;
+  margin-left: 6px;
+  cursor: pointer;
+  padding: 0 2px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+.remove-chip:hover {
+  background: #f9e3e3;
+}
+#activityInput {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1em;
+  flex: 1;
+  min-width: 120px;
+  margin-bottom: 4px;
+  padding: 4px 0;
+  color: #d32f2f;
+}
+.activity-dropdown {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid #d32f2f;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 16px rgba(211,47,47,0.10);
+  z-index: 10;
+  max-height: 180px;
+  overflow-y: auto;
+  margin-top: 2px;
+}
+.dropdown-option {
+  padding: 10px 16px;
+  cursor: pointer;
+  color: #d32f2f;
+  font-size: 1em;
+  transition: background 0.15s;
+}
+.dropdown-option:hover {
+  background: #f9e3e3;
+}
+.dropdown-option.custom {
+  color: #4caf50;
+  font-weight: 600;
+}
