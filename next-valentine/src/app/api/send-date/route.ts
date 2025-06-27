@@ -2,14 +2,22 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import clientPromise from "@/lib/mongodb";
 
-// Function to save date details to MongoDB
-async function saveDateDetails(data: any) {
+// Define type for incoming request data
+interface DateRequestData {
+  activities: string[];
+  time: string;
+  dateConfirmed?: boolean;
+}
+
+// Save date details to MongoDB
+async function saveDateDetails(
+  data: DateRequestData & { date: string; day: string }
+) {
   try {
     const client = await clientPromise;
     const db = client.db("valentine-app");
     const collection = db.collection("dates");
 
-    // Add new date with timestamp
     const newDate = {
       id: Date.now(),
       timestamp: new Date().toISOString(),
@@ -28,10 +36,9 @@ async function saveDateDetails(data: any) {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as DateRequestData;
     const { activities, time, dateConfirmed } = body;
 
-    // Check if environment variables are set
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
       console.error("Email configuration missing");
       return NextResponse.json(
@@ -43,7 +50,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate required fields
+    // Validate inputs
     if (!activities || !Array.isArray(activities) || activities.length === 0) {
       return NextResponse.json(
         {
@@ -64,7 +71,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Save to database (MongoDB)
     const savedDate = await saveDateDetails({
       activities,
       time,
@@ -73,10 +79,8 @@ export async function POST(request: NextRequest) {
       day: "Бямба гариг",
     });
 
-    // Create transporter with fallback options
     let transporter;
     try {
-      // Try explicit configuration first
       transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -92,7 +96,6 @@ export async function POST(request: NextRequest) {
       });
     } catch (configError) {
       console.error("Transporter config error:", configError);
-      // Fallback to service configuration
       transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -102,31 +105,25 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Verify transporter configuration
     let emailSuccess = false;
     try {
       console.log("Attempting to verify email transporter...");
-      console.log("Email user:", process.env.EMAIL_USER);
-      console.log("Email pass length:", process.env.EMAIL_PASS?.length || 0);
       await transporter.verify();
       console.log("Email transporter verified successfully");
       emailSuccess = true;
-    } catch (verifyError: any) {
-      console.error("Email transporter verification failed:", verifyError);
+    } catch (verifyError: unknown) {
+      const error = verifyError as Error & { code?: string; errno?: number };
+      console.error("Email transporter verification failed:", error);
       console.error("Error details:", {
-        message: verifyError.message,
-        code: verifyError.code,
-        errno: verifyError.errno,
+        message: error.message,
+        code: error.code,
+        errno: error.errno,
       });
-
-      // Continue without email - data is already saved
       console.log("Continuing without email functionality...");
     }
 
-    // Try to send email only if verification succeeded
     if (emailSuccess) {
       try {
-        // Email content
         const mailOptions = {
           from: process.env.EMAIL_USER,
           to: "javhaa1410@gmail.com",
@@ -134,36 +131,30 @@ export async function POST(request: NextRequest) {
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #fce4ec, #f3e5f5); border-radius: 15px;">
               <h1 style="color: #e91e63; text-align: center; margin-bottom: 30px;">💕 Шинэ болзооны мэдээлэл! 💕</h1>
-              
               <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                 <h2 style="color: #9c27b0; margin-bottom: 15px;">📅 Болзооны дэлгэрэнгүй мэдээлэл</h2>
-                
                 <div style="margin-bottom: 15px;">
                   <strong style="color: #e91e63;">🗓️ Огноо:</strong> 2025.06.27 Бямба гариг
                 </div>
-                
                 <div style="margin-bottom: 15px;">
                   <strong style="color: #e91e63;">🕐 Цаг:</strong> ${time}
                 </div>
-                
                 <div style="margin-bottom: 15px;">
                   <strong style="color: #e91e63;">✅ Огноо баталгаажсан:</strong> ${
                     dateConfirmed ? "Тийм" : "Үгүй"
                   }
                 </div>
-                
                 <div style="margin-bottom: 15px;">
                   <strong style="color: #e91e63;">🎯 Үйл ажиллагаанууд:</strong>
                   <ul style="margin: 10px 0; padding-left: 20px;">
                     ${activities
                       .map(
-                        (activity: string) =>
+                        (activity) =>
                           `<li style="margin: 5px 0;">${activity}</li>`
                       )
                       .join("")}
                   </ul>
                 </div>
-                
                 <div style="margin-bottom: 15px;">
                   <strong style="color: #e91e63;">🆔 Бүртгэлийн дугаар:</strong> ${
                     savedDate.id
@@ -174,10 +165,9 @@ export async function POST(request: NextRequest) {
           `,
         };
 
-        // Send email
         await transporter.sendMail(mailOptions);
         console.log("Email sent successfully");
-      } catch (emailError: any) {
+      } catch (emailError: unknown) {
         console.error("Email sending failed:", emailError);
         emailSuccess = false;
       }
@@ -193,7 +183,7 @@ export async function POST(request: NextRequest) {
       adminUrl: `/admin`,
     });
   } catch (error) {
-    console.error("Email sending error:", error);
+    console.error("Unhandled error:", error);
     return NextResponse.json(
       {
         success: false,
