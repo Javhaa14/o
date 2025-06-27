@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 const sadGifs = [
   "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2c3bjljZWM2bmNrZHM3MjVjNDRtMWdqaHk1NDlzNTUxeGhobmkyaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3q2K5jinAlChoCLS/giphy.gif",
@@ -71,7 +70,7 @@ export default function Home() {
         </h1>
         {started && (
           <div className="w-64 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60 mb-8 animate-fade-in">
-            <Image
+            <img
               src={gif}
               alt="Reaction gif"
               width={256}
@@ -85,13 +84,15 @@ export default function Home() {
             className="yes-button w-full py-3 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-violet-500 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform duration-150 mb-2"
             style={{ fontSize: `${yesSize}em`, transition: "font-size 0.3s" }}
             onClick={handleYesClick}
-            disabled={isHappy}>
+            disabled={isHappy}
+          >
             Тэгье
           </button>
           <button
             className="no-button w-full py-3 rounded-xl bg-gradient-to-r from-gray-300 via-rose-200 to-pink-200 text-rose-600 font-bold text-lg shadow hover:scale-105 transition-transform duration-150 border border-rose-200"
             onClick={handleNoClick}
-            disabled={isHappy}>
+            disabled={isHappy}
+          >
             {!started ? "Явкүээээ" : messages[messageIndex]}
           </button>
         </div>

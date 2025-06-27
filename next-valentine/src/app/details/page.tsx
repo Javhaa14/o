@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 interface DateEntry {
   _id: string;
@@ -143,7 +142,7 @@ export default function DetailsPage() {
             <div className="text-center space-y-3 text-violet-700">
               <p className="text-lg font-semibold"></p>
               <div className="flex justify-center mt-4">
-                <Image
+                <img
                   src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExemZ5MGkxenZsanpvZmNkNGRnMHN3cnM3c3o5bnJmeHRiNGZqanhmeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT5LMHxhOfscxPfIfm/giphy.gif"
                   alt="Excited gif"
                   width={128}
