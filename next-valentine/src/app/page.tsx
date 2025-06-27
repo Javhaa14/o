@@ -66,7 +66,7 @@ export default function Home() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 via-rose-100 to-violet-200">
       <div className="backdrop-blur-xl bg-white/70 border border-white/40 shadow-2xl rounded-3xl p-8 sm:p-12 w-full max-w-md flex flex-col items-center animate-fade-in">
         <h1 className="text-3xl sm:text-4xl font-bold text-rose-600 mb-6 drop-shadow-lg text-center">
-          Надтай хамт болзоонд явмаар байна уу?
+          Надтай хамт болзоонд явах уу?
         </h1>
         {started && (
           <div className="w-64 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60 mb-8 animate-fade-in">
