@@ -19,7 +19,6 @@ export default function YesPage() {
   const [warning, setWarning] = useState("");
   const [dateConfirmed, setDateConfirmed] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -74,7 +73,6 @@ export default function YesPage() {
       const data = await response.json();
 
       if (data.success) {
-        setEmailSent(data.emailSent);
         setSubmitted(true);
 
         // Show appropriate message based on email status
@@ -199,7 +197,7 @@ export default function YesPage() {
                           className="px-4 py-2 cursor-pointer hover:bg-violet-100 text-violet-600 text-base font-semibold"
                           onMouseDown={() => addActivity(input)}
                         >
-                          ➕ '{input}' нэмэх
+                          ➕ &apos;{input}&apos; нэмэх
                         </div>
                       )}
                   </div>
@@ -236,7 +234,7 @@ export default function YesPage() {
         ) : (
           <div className="flex flex-col items-center gap-4 animate-fade-in">
             <h2 className="text-2xl font-bold text-rose-600">
-              Удахгүй уулзая хөөрхөнөө {":>"}
+              Удахгүй уулзая хөөрхөнөө {":&gt;"}
             </h2>
             <div className="w-64 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60">
               <img
