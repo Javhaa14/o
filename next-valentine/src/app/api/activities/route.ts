@@ -8,33 +8,63 @@ interface ActivityDocument {
   id: number;
 }
 
+// Default activities to use when database is not available
+const DEFAULT_ACTIVITIES = [
+  "Кино үзэх",
+  "Кофе уух",
+  "Паркaар зугаалах",
+  "Хоол идэх",
+  "Тоглоомын төв орох",
+  "Roller skate-ээр гулгах",
+  "Боулинг тоглох",
+  "Trampoline дээр үсрэх",
+  "Ууланд гарах",
+  "Ууж суух",
+  "Зүгээр ярилцаж алхах",
+];
+
 // Get all activities from database
 export async function GET() {
   try {
+    // Check if MongoDB is configured
+    if (!process.env.MONGODB_URI) {
+      console.log("MongoDB not configured, using default activities");
+      return NextResponse.json({
+        success: true,
+        activities: DEFAULT_ACTIVITIES,
+        message: "Using default activities (MongoDB not configured)",
+      });
+    }
+
     const client = await clientPromise;
     const db = client.db("valentine-app");
     const collection = db.collection("activities");
 
-    const activities = (await collection
-      .find({})
-      .toArray()) as ActivityDocument[];
-    const activityList = activities.map(
-      (activity: ActivityDocument) => activity.name
-    );
+    const activities = await collection.find({}).toArray();
+    const activityList = activities
+      .map((activity) => activity as unknown as ActivityDocument)
+      .map((activity: ActivityDocument) => activity.name);
+
+    // Combine default activities with database activities
+    const combinedActivities = [...DEFAULT_ACTIVITIES];
+    activityList.forEach((activity) => {
+      if (!combinedActivities.includes(activity)) {
+        combinedActivities.push(activity);
+      }
+    });
 
     return NextResponse.json({
       success: true,
-      activities: activityList,
+      activities: combinedActivities,
     });
   } catch (error) {
     console.error("Error fetching activities:", error);
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Активүүдийг авахад алдаа гарлаа!",
-      },
-      { status: 500 }
-    );
+    // Fallback to default activities if database fails
+    return NextResponse.json({
+      success: true,
+      activities: DEFAULT_ACTIVITIES,
+      message: "Using default activities (database error)",
+    });
   }
 }
 
@@ -51,6 +81,17 @@ export async function POST(request: NextRequest) {
           message: "Активын нэр оруулна уу!",
         },
         { status: 400 }
+      );
+    }
+
+    // Check if MongoDB is configured
+    if (!process.env.MONGODB_URI) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "MongoDB тохиргоо дутуу байна. Админтай холбогдоно уу.",
+        },
+        { status: 500 }
       );
     }
 
