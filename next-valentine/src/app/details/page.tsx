@@ -1,8 +1,42 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+interface DateEntry {
+  _id: string;
+  id: number;
+  timestamp: string;
+  activities: string[];
+  time: string;
+  dateConfirmed: boolean;
+  date: string;
+  day: string;
+}
 
 export default function DetailsPage() {
-  const [showWarnings, setShowWarnings] = useState(false);
+  const [latest, setLatest] = useState<DateEntry | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/dates")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.dates.length > 0) {
+          setLatest(data.dates[0]);
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 via-rose-100 to-violet-200">
+        <div className="text-rose-600 font-bold text-xl animate-pulse">
+          Уншиж байна...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 via-rose-100 to-violet-200">
@@ -19,13 +53,26 @@ export default function DetailsPage() {
             </h2>
             <div className="space-y-3 text-rose-700">
               <div className="flex items-center gap-3">
+                <span className="text-2xl">🗓️</span>
+                <span className="font-semibold">
+                  {latest
+                    ? `${latest.date} - ${latest.day}`
+                    : "2025.06.27 - Бямба гариг"}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
                 <span className="text-2xl">🕐</span>
-                <span className="font-semibold">Цаг: 14:00</span>
+                <span className="font-semibold">
+                  Цаг: {latest ? latest.time : "14:00"}
+                </span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-2xl">🎯</span>
                 <span className="font-semibold">
-                  Үйл ажиллагаа: Кино үзэх + Кофе
+                  Үйл ажиллагаа:{" "}
+                  {latest && latest.activities.length > 0
+                    ? latest.activities.join(", ")
+                    : "Кино үзэх + Кофе"}
                 </span>
               </div>
               <div className="flex items-center gap-3 ">
@@ -62,6 +109,16 @@ export default function DetailsPage() {
                   </span>
                   <p className="text-sm mt-1">
                     Би байдаг л нэг монгол залуу шүү хха
+                  </p>
+                </div>
+              </div>
+              <div className="flex w-[350px] items-start gap-3">
+                <span className="text-2xl mx-2 mt-1">❗</span>
+                <div>
+                  <span className="font-semibold">Анхаар!</span>
+                  <p className="text-sm mt-1">
+                    Хэрэв Жаргал хэтэрхий хөөрхөн байвал өөрийн эрхгүй үнсчихэж
+                    магадгүй!!!
                   </p>
                 </div>
               </div>
