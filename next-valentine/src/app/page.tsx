@@ -63,13 +63,13 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 via-rose-100 to-violet-200">
-      <div className="backdrop-blur-xl bg-white/70 border border-white/40 shadow-2xl rounded-3xl p-8 sm:p-12 w-full max-w-md flex flex-col items-center animate-fade-in">
-        <h1 className="text-3xl sm:text-4xl font-bold text-rose-600 mb-6 drop-shadow-lg text-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 via-rose-100 to-violet-200 p-4">
+      <div className="backdrop-blur-xl bg-white/70 border border-white/40 shadow-2xl rounded-3xl p-4 sm:p-8 w-full max-w-md flex flex-col items-center animate-fade-in">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-rose-600 mb-4 sm:mb-6 drop-shadow-lg text-center leading-tight">
           Надтай хамт болзоонд явах уу?
         </h1>
         {started && (
-          <div className="w-64 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60 mb-8 animate-fade-in">
+          <div className="w-48 sm:w-56 md:w-64 h-36 sm:h-40 md:h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60 mb-6 sm:mb-8 animate-fade-in">
             <img
               src={gif}
               alt="Reaction gif"
@@ -79,20 +79,18 @@ export default function Home() {
             />
           </div>
         )}
-        <div className="flex flex-col gap-6 w-full items-center">
+        <div className="flex flex-col gap-4 sm:gap-6 w-full items-center">
           <button
-            className="yes-button w-full py-3 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-violet-500 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform duration-150 mb-2"
+            className="yes-button w-full py-3 sm:py-4 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-violet-500 text-white font-bold text-base sm:text-lg shadow-lg hover:scale-105 active:scale-95 transition-transform duration-150 mb-2 touch-manipulation"
             style={{ fontSize: `${yesSize}em`, transition: "font-size 0.3s" }}
             onClick={handleYesClick}
-            disabled={isHappy}
-          >
+            disabled={isHappy}>
             Тэгье
           </button>
           <button
-            className="no-button w-full py-3 rounded-xl bg-gradient-to-r from-gray-300 via-rose-200 to-pink-200 text-rose-600 font-bold text-lg shadow hover:scale-105 transition-transform duration-150 border border-rose-200"
+            className="no-button w-full py-3 sm:py-4 rounded-xl bg-gradient-to-r from-gray-300 via-rose-200 to-pink-200 text-rose-600 font-bold text-base sm:text-lg shadow hover:scale-105 active:scale-95 transition-transform duration-150 border border-rose-200 touch-manipulation"
             onClick={handleNoClick}
-            disabled={isHappy}
-          >
+            disabled={isHappy}>
             {!started ? "Явкүээээ" : messages[messageIndex]}
           </button>
         </div>
@@ -110,6 +108,18 @@ export default function Home() {
         }
         .animate-fade-in {
           animation: fade-in 0.5s both;
+        }
+
+        /* Mobile-specific touch improvements */
+        @media (max-width: 640px) {
+          .touch-manipulation {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+          }
+
+          button:active {
+            transform: scale(0.95);
+          }
         }
       `}</style>
     </div>
