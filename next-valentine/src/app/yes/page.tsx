@@ -8,6 +8,12 @@ const DEFAULT_ACTIVITIES = [
   "Паркaар зугаалах",
   "Хоол идэх",
   "Тоглоомын төв орох",
+  "Roller skate-ээр гулгах",
+  "Боулинг тоглох",
+  "Trampoline дээр үсрэх",
+  "Ууланд гарах",
+  "Ууж суух",
+  "Зүгээр ярилцаж алхах",
 ];
 
 export default function YesPage() {
@@ -234,7 +240,7 @@ export default function YesPage() {
         ) : (
           <div className="flex flex-col items-center gap-4 animate-fade-in">
             <h2 className="text-2xl font-bold text-rose-600">
-              Удахгүй уулзая хөөрхөнөө {":&gt;"}
+              Удахгүй уулзая хөөрхөнөө {":>"}
             </h2>
             <div className="w-64 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60">
               <img
