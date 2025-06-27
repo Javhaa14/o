@@ -1,9 +1,18 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function TestPage() {
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<{
+    success: boolean;
+    message: string;
+    error?: string;
+    details?: {
+      user?: string;
+      passLength?: number;
+    };
+  } | null>(null);
 
   async function testEmail() {
     setLoading(true);
@@ -92,11 +101,9 @@ export default function TestPage() {
         )}
 
         <div className="mt-6 text-center">
-          <a 
-            href="/"
-            className="text-rose-600 hover:text-rose-700 font-semibold">
+          <Link href="/" className="text-rose-600 hover:text-rose-700 font-semibold">
             ← Үндсэн хуудас руу буцах
-          </a>
+          </Link>
         </div>
       </div>
     </div>

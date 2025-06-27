@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const DEFAULT_ACTIVITIES = [
   "Кино үзэх",
@@ -237,9 +238,11 @@ export default function YesPage() {
               Удахгүй уулзая хөөрхөнөө {":&gt;"}
             </h2>
             <div className="w-64 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60">
-              <img
+              <Image
                 src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2l6OGp4dHlta3kyZTB1dDFrdXJ5OTZrbGlpOGNhYmc0cHMxZ2RxNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Xft2d1ir6iMAzMju3K/giphy.gif"
                 alt="Happy gif"
+                width={256}
+                height={192}
                 className="w-full h-full object-cover"
               />
             </div>

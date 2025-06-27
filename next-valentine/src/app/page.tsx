@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const sadGifs = [
   "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2c3bjljZWM2bmNrZHM3MjVjNDRtMWdqaHk1NDlzNTUxeGhobmkyaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3q2K5jinAlChoCLS/giphy.gif",
@@ -70,9 +71,11 @@ export default function Home() {
         </h1>
         {started && (
           <div className="w-64 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60 mb-8 animate-fade-in">
-            <img
+            <Image
               src={gif}
               alt="Reaction gif"
+              width={256}
+              height={192}
               className="w-full h-full object-cover transition-all duration-500"
             />
           </div>
