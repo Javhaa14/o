@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 // const DEFAULT_ACTIVITIES = [
 //   "Кино үзэх",
@@ -16,7 +16,7 @@ import { useState, useRef } from "react";
 // ];
 
 export default function YesPage() {
-  const [activities, setActivities] = useState<string[]>(["Ууланд гарах"]);
+  const [activities] = useState<string[]>(["Ууланд гарах"]);
   // const [input, setInput] = useState("");
   // const [dropdown, setDropdown] = useState(false);
   const [time, setTime] = useState("");
