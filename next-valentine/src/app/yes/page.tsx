@@ -17,7 +17,7 @@ const DEFAULT_ACTIVITIES = [
 ];
 
 export default function YesPage() {
-  const [activities, setActivities] = useState<string[]>([]);
+  const [activities, setActivities] = useState<string[]>(["Ууланд гарах"]);
   const [input, setInput] = useState("");
   const [dropdown, setDropdown] = useState(false);
   const [time, setTime] = useState("");
@@ -102,7 +102,7 @@ export default function YesPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 via-rose-100 to-violet-200">
       <div className="backdrop-blur-xl bg-white/70 border border-white/40 shadow-2xl rounded-3xl p-8 sm:p-12 w-full max-w-md flex flex-col items-center animate-fade-in">
         <h1 className="text-3xl sm:text-4xl font-bold text-rose-600 mb-6 drop-shadow-lg text-center">
-          Явмаар байгааг чинь мэдсиймаа!
+          Хөөрхий залууд боломж олгосонд баярлалаа!
         </h1>
         {!submitted ? (
           <form
@@ -115,7 +115,7 @@ export default function YesPage() {
                 📅 Огнооны баталгаажуулалт
               </h2>
               <p className="text-center text-blue-700 mb-4 font-semibold">
-                Болзоо 2025.06.27 Бямба гаригт болно гэдэгт итгэлтэй байна уу?
+                2025.07.22-ны өдөр гэдэгт зөвшөөрч байна уу?
               </p>
               <div className="flex gap-3 justify-center">
                 <button
@@ -142,7 +142,7 @@ export default function YesPage() {
                 </button>
               </div>
             </div>
-            <div>
+            {/* <div>
               <label className="block text-lg font-semibold text-rose-500 mb-2">
                 Юу хиймээр байгаа вэ?
               </label>
@@ -208,7 +208,7 @@ export default function YesPage() {
                       )}
                   </div>
                 )}
-            </div>
+            </div> */}
             <div>
               <label className="block text-lg font-semibold text-rose-500 mb-2">
                 Хэдэн цагт уулзах вэ?
@@ -240,25 +240,25 @@ export default function YesPage() {
         ) : (
           <div className="flex flex-col items-center gap-4 animate-fade-in">
             <h2 className="text-2xl font-bold text-rose-600">
-              Удахгүй уулзая хөөрхөнөө {":>"}
+              Маргааш өглөө уулзая!!
             </h2>
             <div className="w-64 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60">
               <img
-                src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2l6OGp4dHlta3kyZTB1dDFrdXJ5OTZrbGlpOGNhYmc0cHMxZ2RxNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Xft2d1ir6iMAzMju3K/giphy.gif"
+                src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWduZGJ5YTY3ejZxbTczZjl1bTJqbjBtaTFzNHgxdGFod3ZhcWF3ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tFSqMSMnzPRTAdvKyr/giphy.gif"
                 alt="Happy gif"
                 width={256}
                 height={192}
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="flex flex-col gap-3 w-full">
+            {/* <div className="flex flex-col gap-3 w-full">
               <button
                 onClick={() => router.push("/details")}
                 className="w-full py-3 rounded-xl bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform duration-150"
               >
                 📋 Болзооны дэлгэрэнгүй мэдээлэл харах
               </button>
-            </div>
+            </div> */}
           </div>
         )}
       </div>

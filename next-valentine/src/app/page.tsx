@@ -4,12 +4,15 @@ import { useRouter } from "next/navigation";
 
 const sadGifs = [
   "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2c3bjljZWM2bmNrZHM3MjVjNDRtMWdqaHk1NDlzNTUxeGhobmkyaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3q2K5jinAlChoCLS/giphy.gif",
-  "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHh3aGJ5NnR4ZG11dHF4OWthOGZ3NGVndzloeDZtNXBpem5mYWx4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xTiTnIilwuFFFpf2Cc/giphy.gif",
-  "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTRpZXV6bWtqa2ZiZ2hpaTAza25wa2dzbGdmN2Ywank5ZHI3bmxndiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MwOuiiTfWfWgM/giphy.gif",
+  "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzlkNTdhcnZ6YjNndWVibHloaTZhc29nNTgyaXN6cWYyeXN2ZHlyNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5hgN57A3b7f9N8STyP/giphy.gif",
+  // "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHh3aGJ5NnR4ZG11dHF4OWthOGZ3NGVndzloeDZtNXBpem5mYWx4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xTiTnIilwuFFFpf2Cc/giphy.gif",
+  // "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTRpZXV6bWtqa2ZiZ2hpaTAza25wa2dzbGdmN2Ywank5ZHI3bmxndiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MwOuiiTfWfWgM/giphy.gif",
   "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3J4dzBkNGFnMzB5Z3huaGg5MmlhMTh3bGVhdDZoeGs3OWtpN3RtaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/srVgXpqz5QdTG/giphy.gif",
   "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTBuOXJydHc2amFpa21qMXpjeW5haHBjODRzd2FpcnFzd2JmZnBveCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qUIm5wu6LAAog/giphy.gif",
-  "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTY4a3h4NXExMTF2aGxlenVmZHVsaWU5ZDBudmg3aTZrZTBlNGg3OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/W0c3xcZ3F1d0EYYb0f/giphy.gif",
-  "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmduZHZ2YmdvcnBtN2YwOWo0bjY3d25kYzl0ZTVnMmZ3czJnMWhieiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/O3JyUHiKqsviE/giphy.gif",
+  "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3NpZ3pmNnh1bnppaGN1OTJ5eTZhNXpiNDVqd3Y1bm55emczdDNmaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ISOckXUybVfQ4/giphy.gif",
+  // "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTY4a3h4NXExMTF2aGxlenVmZHVsaWU5ZDBudmg3aTZrZTBlNGg3OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/W0c3xcZ3F1d0EYYb0f/giphy.gif",
+  // "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmduZHZ2YmdvcnBtN2YwOWo0bjY3d25kYzl0ZTVnMmZ3czJnMWhieiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/O3JyUHiKqsviE/giphy.gif",
+  "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHNkNnZ3MWwwNmR6dDI2cThhZTBjYzV6cHEyYWY5bGlvZWJ6NTd2cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yoJC2Olx0ekMy2nX7W/giphy.gif",
 ];
 const happyGifs = [
   "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExemZ5MGkxenZsanpvZmNkNGRnMHN3cnM3c3o5bnJmeHRiNGZqanhmeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT5LMHxhOfscxPfIfm/giphy.gif",
@@ -18,12 +21,13 @@ const happyGifs = [
 ];
 const messages = [
   "Андуураад дарцан уу?",
-  "Яаж байна????",
-  "Ээлдээ",
-  "Уйллаа шүү",
-  "Чи итгэлтэй байна уу??",
-  "Айй life-аа гэж",
-  "Жаргалааааааааааааа",
+  "Хөлдүү төмс намайг уучилж хайрла",
+  // "Яаж байна????",
+  // "Ээлдээ",
+  "Ганцхан боломж олгооч",
+  "Гуйжийн",
+  "Хөөрхөн болохоор чинь л тэсэлгүй",
+  "Энэлэл сонсож эморыдоо",
 ];
 
 export default function Home() {
@@ -66,7 +70,7 @@ export default function Home() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 via-rose-100 to-violet-200">
       <div className="backdrop-blur-xl bg-white/70 border border-white/40 shadow-2xl rounded-3xl p-8 sm:p-12 w-full max-w-md flex flex-col items-center animate-fade-in">
         <h1 className="text-3xl sm:text-4xl font-bold text-rose-600 mb-6 drop-shadow-lg text-center">
-          Надтай хамт болзоонд явах уу?
+          Маргааш ууланд хамт гарж болох уу?
         </h1>
         {started && (
           <div className="w-64 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60 mb-8 animate-fade-in">
