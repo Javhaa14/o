@@ -73,7 +73,7 @@ export default function Home() {
           Маргааш ууланд хамт гарж болох уу?
         </h1>
         {started && (
-          <div className="w-64 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60 mb-8 animate-fade-in">
+          <div className="w-48 sm:w-56 md:w-64 h-36 sm:h-40 md:h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white/60 mb-6 sm:mb-8 animate-fade-in">
             <img
               src={gif}
               alt="Reaction gif"
@@ -83,9 +83,9 @@ export default function Home() {
             />
           </div>
         )}
-        <div className="flex flex-col gap-6 w-full items-center">
+        <div className="flex flex-col gap-4 sm:gap-6 w-full items-center">
           <button
-            className="yes-button w-full py-3 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-violet-500 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform duration-150 mb-2"
+            className="yes-button w-full py-3 sm:py-4 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-violet-500 text-white font-bold text-base sm:text-lg shadow-lg hover:scale-105 active:scale-95 transition-transform duration-150 mb-2 touch-manipulation"
             style={{ fontSize: `${yesSize}em`, transition: "font-size 0.3s" }}
             onClick={handleYesClick}
             disabled={isHappy}
@@ -93,7 +93,7 @@ export default function Home() {
             Тэгье
           </button>
           <button
-            className="no-button w-full py-3 rounded-xl bg-gradient-to-r from-gray-300 via-rose-200 to-pink-200 text-rose-600 font-bold text-lg shadow hover:scale-105 transition-transform duration-150 border border-rose-200"
+            className="no-button w-full py-3 sm:py-4 rounded-xl bg-gradient-to-r from-gray-300 via-rose-200 to-pink-200 text-rose-600 font-bold text-base sm:text-lg shadow hover:scale-105 active:scale-95 transition-transform duration-150 border border-rose-200 touch-manipulation"
             onClick={handleNoClick}
             disabled={isHappy}
           >
@@ -114,6 +114,18 @@ export default function Home() {
         }
         .animate-fade-in {
           animation: fade-in 0.5s both;
+        }
+
+        /* Mobile-specific touch improvements */
+        @media (max-width: 640px) {
+          .touch-manipulation {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+          }
+
+          button:active {
+            transform: scale(0.95);
+          }
         }
       `}</style>
     </div>
