@@ -1,49 +1,48 @@
 "use client";
 import { useState, useRef } from "react";
-import { useRouter } from "next/navigation";
 
-const DEFAULT_ACTIVITIES = [
-  "Кино үзэх",
-  "Кофе уух",
-  "Паркaар зугаалах",
-  "Хоол идэх",
-  "Тоглоомын төв орох",
-  "Roller skate-ээр гулгах",
-  "Боулинг тоглох",
-  "Trampoline дээр үсрэх",
-  "Ууланд гарах",
-  "Ууж суух",
-  "Зүгээр ярилцаж алхах",
-];
+// const DEFAULT_ACTIVITIES = [
+//   "Кино үзэх",
+//   "Кофе уух",
+//   "Паркaар зугаалах",
+//   "Хоол идэх",
+//   "Тоглоомын төв орох",
+//   "Roller skate-ээр гулгах",
+//   "Боулинг тоглох",
+//   "Trampoline дээр үсрэх",
+//   "Ууланд гарах",
+//   "Ууж суух",
+//   "Зүгээр ярилцаж алхах",
+// ];
 
 export default function YesPage() {
   const [activities, setActivities] = useState<string[]>(["Ууланд гарах"]);
-  const [input, setInput] = useState("");
-  const [dropdown, setDropdown] = useState(false);
+  // const [input, setInput] = useState("");
+  // const [dropdown, setDropdown] = useState(false);
   const [time, setTime] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [warning, setWarning] = useState("");
   const [dateConfirmed, setDateConfirmed] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
+  // const inputRef = useRef<HTMLInputElement>(null);
+  // const router = useRouter();
 
-  const available = DEFAULT_ACTIVITIES.filter(
-    (a) =>
-      !activities.includes(a) && a.toLowerCase().includes(input.toLowerCase())
-  );
+  // const available = DEFAULT_ACTIVITIES.filter(
+  //   (a) =>
+  //     !activities.includes(a) && a.toLowerCase().includes(input.toLowerCase())
+  // );
 
-  function addActivity(activity: string) {
-    if (!activity.trim() || activities.includes(activity)) return;
-    setActivities([...activities, activity]);
-    setInput("");
-    setDropdown(false);
-    inputRef.current?.focus();
-  }
+  // function addActivity(activity: string) {
+  //   if (!activity.trim() || activities.includes(activity)) return;
+  //   setActivities([...activities, activity]);
+  //   setInput("");
+  //   // setDropdown(false);
+  //   inputRef.current?.focus();
+  // }
 
-  function removeActivity(activity: string) {
-    setActivities(activities.filter((a) => a !== activity));
-  }
+  // function removeActivity(activity: string) {
+  //   setActivities(activities.filter((a) => a !== activity));
+  // }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
